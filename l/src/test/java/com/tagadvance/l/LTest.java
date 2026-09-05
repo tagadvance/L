@@ -1,7 +1,6 @@
 package com.tagadvance.l;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.concurrent.Callable;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +11,7 @@ import org.slf4j.MarkerFactory;
 class LTest {
 
 	@Test
+	@DisplayName("log() returns a logger")
 	void logger() {
 		final var logger = L.log();
 
@@ -19,6 +19,7 @@ class LTest {
 	}
 
 	@Test
+	@DisplayName("nestedLogger() returns a logger")
 	void nestedLogger() {
 		final var logger = L.nestedLogger();
 
@@ -30,6 +31,7 @@ class LTest {
 	 * always returns "NOP".
 	 */
 	@Test
+	@DisplayName("logger is named for the calling class")
 	void loggerReturnsNameOfEnclosingClass() {
 		final var className = L.getClassName();
 
@@ -37,6 +39,7 @@ class LTest {
 	}
 
 	@Test
+	@DisplayName("a call from a nested class is attributed to the outer class")
 	void loggerReturnsNameOfEnclosingClassFromIntermediateClass() {
 		final var className = new IntermediateClass().call();
 
@@ -44,6 +47,7 @@ class LTest {
 	}
 
 	@Test
+	@DisplayName("a call from a doubly nested class is attributed to the outer class")
 	void loggerReturnsNameOfEnclosingClassFromInnerClass() {
 		final var className = new IntermediateStaticClass.InnerStaticClass().call();
 
@@ -78,6 +82,7 @@ class LTest {
 	}
 
 	@Test
+	@DisplayName("nested logger is named for the calling class")
 	void nestReturnsNameOfEnclosingClass() {
 		final var className = L.getNestClassName();
 
@@ -85,6 +90,7 @@ class LTest {
 	}
 
 	@Test
+	@DisplayName("a nested logger keeps the nested class name")
 	void nestReturnsNameOfEnclosingClassFromIntermediateClass() {
 		final var className = new IntermediateNestClass().call();
 
@@ -92,6 +98,7 @@ class LTest {
 	}
 
 	@Test
+	@DisplayName("a nested logger keeps the doubly nested class name")
 	void nestReturnsNameOfEnclosingClassFromInnerClass() {
 		final var className = new IntermediateStaticNestClass.InnerStaticNestClass().call();
 
