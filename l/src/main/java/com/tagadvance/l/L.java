@@ -40,18 +40,24 @@ public final class L {
 		return getClassName(name -> true);
 	}
 
+	/**
+	 * Frames in these packages are the JDK calling back into user code - a stream, a reflective
+	 * invoke - never the class that wanted a logger.
+	 */
+	private static final Pattern PLATFORM_PACKAGE = Pattern.compile(
+		"^(com\\.sun|java|javax|jdk|org\\.w3c\\.dom|org\\.xml\\.sax)\\.");
+
 	static String getClassName(final Predicate<String> predicate) {
 		final var stackTrace = Thread.currentThread().getStackTrace();
-		final var regex = "^(com\\.sun|java|javax|jdk|org\\.w3c\\.dom|org\\.xml\\.sax)\\.";
-		final var pattern = Pattern.compile(regex);
 
 		return Stream.of(stackTrace)
 			.map(StackTraceElement::getClassName)
-			.filter(name -> !pattern.matcher(name).find())
+			.filter(name -> !PLATFORM_PACKAGE.matcher(name).find())
 			.filter(name -> !name.equals(L.class.getName()))
 			.filter(predicate)
 			.findFirst()
-			.orElseThrow();
+			.orElseThrow(() -> new IllegalStateException(
+				"no caller frame outside the JDK and L itself was found on the current stack"));
 	}
 
 	private L() {
