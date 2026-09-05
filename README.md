@@ -1,6 +1,11 @@
 # L
 
-A super simple library that aims to eliminate logging boilerplate. There are no dependencies.
+[![build](https://github.com/tagadvance/L/actions/workflows/build.yml/badge.svg)](https://github.com/tagadvance/L/actions/workflows/build.yml)
+[![Maven Central](https://img.shields.io/maven-central/v/com.tagadvance/l)](https://central.sonatype.com/artifact/com.tagadvance/l)
+[![license](https://img.shields.io/github/license/tagadvance/L)](LICENSE)
+
+A super simple library that aims to eliminate logging boilerplate. SLF4J is the only dependency;
+bring your own binding.
 
 ## Installation
 
@@ -49,7 +54,7 @@ public class Foo {
 ## Example with L
 
 ```java
-import com.tagadvance.l;
+import com.tagadvance.l.L;
 
 public class Foo {
 
@@ -63,3 +68,13 @@ public class Foo {
 ## That's it?
 
 That's it.
+
+## Caveat
+
+`L` finds the calling class by walking the current thread's stack, and it does so on every call —
+including calls at a level that is disabled and will be thrown away. That is the price of not
+holding a `Logger` field. On a hot path, hold one.
+
+---
+
+If you find this useful, you can [sponsor the work](https://github.com/sponsors/tagadvance).
