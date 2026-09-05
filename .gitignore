@@ -12,6 +12,9 @@
 
 # Package Files #
 *.jar
+# ...except the Gradle wrapper jar, which has to be in the repo for ./gradlew to work anywhere
+# it is cloned - CI included.
+!gradle/wrapper/gradle-wrapper.jar
 *.war
 *.nar
 *.ear
@@ -27,3 +30,10 @@ hs_err_pid*
 
 # Ignore Gradle build output directory
 build
+
+# IDE
+.idea/
+*.iml
+
+# Scratch notes
+/tmp/
