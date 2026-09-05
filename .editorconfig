@@ -1,0 +1,28 @@
+# Mirrors ~/git/.editorconfig, kept here so CI runners and clones without that file agree.
+root = true
+
+[*]
+indent_style = tab
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# The Gradle Kotlin DSL is spaces by convention, and these files already are.
+[*.{gradle,gradle.kts,kt,kts}]
+indent_style = space
+indent_size = 4
+
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+[*.json]
+indent_style = space
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+[gradlew.bat]
+end_of_line = crlf
