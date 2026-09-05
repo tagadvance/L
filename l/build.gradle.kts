@@ -23,7 +23,7 @@ repositories {
 dependencies {
     // api, not implementation: Logger and Marker are all over L's own signatures, so anyone
     // calling L needs slf4j on their compile classpath anyway.
-    api("org.slf4j:slf4j-api:2.0.17")
+    api("org.slf4j:slf4j-api:2.0.18")
 }
 
 java {
