@@ -16,20 +16,20 @@ Maven
 <dependency>
   <groupId>com.tagadvance</groupId>
   <artifactId>l</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
 Gradle
 
 ```groovy
-implementation group: 'com.tagadvance', name: 'l', version: '1.0.0'
+implementation group: 'com.tagadvance', name: 'l', version: '1.1.0'
 ```
 
 Gradle Kotlin
 
 ```kotlin
-implementation("com.tagadvance:l:1.0.0")
+implementation("com.tagadvance:l:1.1.0")
 ```
 
 ## Boilerplate Example
