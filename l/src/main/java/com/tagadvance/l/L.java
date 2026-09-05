@@ -10,6 +10,15 @@ import org.slf4j.event.Level;
 import org.slf4j.helpers.CheckReturnValue;
 import org.slf4j.spi.LoggingEventBuilder;
 
+/**
+ * Static aliases for SLF4J that name their own logger, so a class does not need a
+ * {@code private static final Logger} field.
+ *
+ * <p>The logger name is taken from the calling class, which is found by walking the current
+ * thread's stack on <em>every</em> call - including calls at a level that is disabled and will be
+ * discarded. That cost is the price of the missing field; prefer a held {@link Logger} on a hot
+ * path.
+ */
 @SuppressWarnings("unused")
 public final class L {
 
@@ -20,6 +29,12 @@ public final class L {
 		return logger();
 	}
 
+	/**
+	 * A logger named after the calling class. A call from a nested, inner, or anonymous class is
+	 * attributed to the outermost enclosing class - use {@link #nestedLogger()} to keep the nesting.
+	 *
+	 * @throws IllegalStateException if the stack holds no frame outside the JDK and {@code L} itself
+	 */
 	public static Logger logger() {
 		final var className = getClassName();
 
@@ -30,6 +45,13 @@ public final class L {
 		return getClassName(name -> !name.contains("$"));
 	}
 
+	/**
+	 * A logger named after the calling class without collapsing nesting, so a call from
+	 * {@code Outer$Inner} is named for {@code Outer$Inner} rather than {@code Outer}. Reach for it
+	 * when inner classes need their own log levels.
+	 *
+	 * @throws IllegalStateException if the stack holds no frame outside the JDK and {@code L} itself
+	 */
 	public static Logger nestedLogger() {
 		final var className = getNestClassName();
 
