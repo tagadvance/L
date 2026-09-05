@@ -1,8 +1,8 @@
 package com.tagadvance.l;
 
+import java.lang.StackWalker.StackFrame;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
@@ -69,15 +69,19 @@ public final class L {
 	private static final Pattern PLATFORM_PACKAGE = Pattern.compile(
 		"^(com\\.sun|java|javax|jdk|org\\.w3c\\.dom|org\\.xml\\.sax)\\.");
 
-	static String getClassName(final Predicate<String> predicate) {
-		final var stackTrace = Thread.currentThread().getStackTrace();
+	/**
+	 * A {@link StackWalker} rather than {@link Thread#getStackTrace()}: the walk below stops at the
+	 * first frame it wants, so the JVM never materializes the frames beneath it.
+	 */
+	private static final StackWalker WALKER = StackWalker.getInstance();
 
-		return Stream.of(stackTrace)
-			.map(StackTraceElement::getClassName)
-			.filter(name -> !PLATFORM_PACKAGE.matcher(name).find())
-			.filter(name -> !name.equals(L.class.getName()))
-			.filter(predicate)
-			.findFirst()
+	static String getClassName(final Predicate<String> predicate) {
+		return WALKER.walk(frames -> frames
+				.map(StackFrame::getClassName)
+				.filter(name -> !PLATFORM_PACKAGE.matcher(name).find())
+				.filter(name -> !name.equals(L.class.getName()))
+				.filter(predicate)
+				.findFirst())
 			.orElseThrow(() -> new IllegalStateException(
 				"no caller frame outside the JDK and L itself was found on the current stack"));
 	}
