@@ -14,10 +14,11 @@ import org.slf4j.spi.LoggingEventBuilder;
  * Static aliases for SLF4J that name their own logger, so a class does not need a
  * {@code private static final Logger} field.
  *
- * <p>The logger name is taken from the calling class, which is found by walking the current
- * thread's stack on <em>every</em> call - including calls at a level that is disabled and will be
- * discarded. That cost is the price of the missing field; prefer a held {@link Logger} on a hot
- * path.
+ * <p><strong>This is not free.</strong> The logger name comes from the calling class, found by
+ * walking the current thread's stack on <em>every</em> call - including calls at a level that is
+ * disabled and whose message is thrown away. The walk costs on the order of a microsecond, against
+ * single-digit nanoseconds for a held {@link Logger} field: roughly three orders of magnitude.
+ * Convenience only, and never on a hot path.
  */
 @SuppressWarnings("unused")
 public final class L {

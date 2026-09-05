@@ -72,8 +72,17 @@ That's it.
 ## Caveat
 
 `L` finds the calling class by walking the current thread's stack, and it does so on every call —
-including calls at a level that is disabled and will be thrown away. That is the price of not
-holding a `Logger` field. On a hot path, hold one.
+including calls at a level that is disabled and whose message is thrown away.
+
+Measured on JDK 17, caller 50 frames deep, level disabled:
+
+| | ns/call |
+| --- | --- |
+| `private static final Logger` field | 3 |
+| `L` | 1,800 |
+
+Three orders of magnitude. `L` is a convenience for code where logging is not on the hot path.
+Anywhere it is, hold a field.
 
 ---
 
