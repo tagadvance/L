@@ -128,7 +128,7 @@ mavenPublishing {
 
         organization {
             name.set("tagadvance")
-            url.set("https://tagadvance.com")
+            url.set("https://github.com/tagadvance")
         }
 
         developers {
@@ -137,7 +137,7 @@ mavenPublishing {
                 name.set("Tag Spilman")
                 email.set("tagadvance+L@gmail.com")
                 organization.set("tagadvance")
-                organizationUrl.set("https://tagadvance.com")
+                organizationUrl.set("https://github.com/tagadvance")
             }
         }
 
