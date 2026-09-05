@@ -123,7 +123,7 @@ public final class L {
 	/**
 	 * Alias of {@link Logger#trace(Marker, String, Object)}.
 	 */
-	public void trace(Marker marker, String format, Object arg) {
+	public static void trace(Marker marker, String format, Object arg) {
 		logger().trace(marker, format, arg);
 	}
 
@@ -216,7 +216,7 @@ public final class L {
 	/**
 	 * Alias of {@link Logger#debug(Marker, String, Object)}.
 	 */
-	public void debug(Marker marker, String format, Object arg) {
+	public static void debug(Marker marker, String format, Object arg) {
 		logger().debug(marker, format, arg);
 	}
 
@@ -309,7 +309,7 @@ public final class L {
 	/**
 	 * Alias of {@link Logger#info(Marker, String, Object)}.
 	 */
-	public void info(Marker marker, String format, Object arg) {
+	public static void info(Marker marker, String format, Object arg) {
 		logger().info(marker, format, arg);
 	}
 
@@ -402,7 +402,7 @@ public final class L {
 	/**
 	 * Alias of {@link Logger#warn(Marker, String, Object)}.
 	 */
-	public void warn(Marker marker, String format, Object arg) {
+	public static void warn(Marker marker, String format, Object arg) {
 		logger().warn(marker, format, arg);
 	}
 
@@ -495,7 +495,7 @@ public final class L {
 	/**
 	 * Alias of {@link Logger#error(Marker, String, Object)}.
 	 */
-	public void error(Marker marker, String format, Object arg) {
+	public static void error(Marker marker, String format, Object arg) {
 		logger().error(marker, format, arg);
 	}
 

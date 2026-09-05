@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.concurrent.Callable;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
+import org.slf4j.MarkerFactory;
 
 class LTest {
 
@@ -122,6 +124,24 @@ class LTest {
 
 		}
 
+	}
+
+	/**
+	 * The five {@code (Marker, String, Object)} overloads were declared without {@code static},
+	 * which made them unreachable on a final class with a private constructor. This does not assert
+	 * anything at run time - it fails to compile if any of them goes back to being an instance
+	 * method.
+	 */
+	@Test
+	@DisplayName("every Marker alias is callable without an instance")
+	void markerAliasesAreStatic() {
+		final var marker = MarkerFactory.getMarker("test");
+
+		L.trace(marker, "{}", "arg");
+		L.debug(marker, "{}", "arg");
+		L.info(marker, "{}", "arg");
+		L.warn(marker, "{}", "arg");
+		L.error(marker, "{}", "arg");
 	}
 
 }
