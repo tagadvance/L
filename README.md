@@ -83,7 +83,3 @@ Measured on JDK 17, caller 50 frames deep, level disabled:
 
 Three orders of magnitude. `L` is a convenience for code where logging is not on the hot path.
 Anywhere it is, hold a field.
-
----
-
-If you find this useful, you can [sponsor the work](https://github.com/sponsors/tagadvance).
